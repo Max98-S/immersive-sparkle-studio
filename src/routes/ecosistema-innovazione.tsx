@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { PageShell, PageHeader } from "@/components/PageShell";
 import { GlassCard } from "@/components/GlassCard";
 import { MapPin, Atom, FlaskConical, Layers, Cpu } from "lucide-react";
+import { Italy3D } from "@/components/Italy3D";
 
 export const Route = createFileRoute("/ecosistema-innovazione")({
   head: () => ({
