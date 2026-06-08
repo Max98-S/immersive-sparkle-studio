@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PageShell, PageHeader } from "@/components/PageShell";
 import { GlassCard } from "@/components/GlassCard";
-import { MapPin, Atom, FlaskConical, Layers, Cpu } from "lucide-react";
+import { Atom, FlaskConical, Layers, Cpu } from "lucide-react";
 import { Italy3D } from "@/components/Italy3D";
 
 export const Route = createFileRoute("/ecosistema-innovazione")({
@@ -14,14 +14,6 @@ export const Route = createFileRoute("/ecosistema-innovazione")({
   }),
   component: Ecosistema,
 });
-
-const locations = [
-  { city: "Roma", role: "Head Quarter — Agjconfin · JABER Innovation" },
-  { city: "Arezzo", role: "NANESA — Nanomateriali & Q-materials" },
-  { city: "Bari", role: "Biomaterials LAB" },
-  { city: "Teverola (CE)", role: "Technology LAB — Jaber Innovation" },
-  { city: "Portici (NA)", role: "Nanomaterials LAB c/o IPCB-CNR" },
-];
 
 const focus = [
   { icon: Layers, title: "Coating funzionali & attivi", desc: "Rivestimenti ad alte prestazioni per packaging, automotive, aeronautico." },
