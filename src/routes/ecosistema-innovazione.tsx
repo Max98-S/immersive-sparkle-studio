@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PageShell, PageHeader } from "@/components/PageShell";
 import { GlassCard } from "@/components/GlassCard";
-import { MapPin, Atom, FlaskConical, Layers, Cpu } from "lucide-react";
+import { Atom, FlaskConical, Layers, Cpu } from "lucide-react";
+import { Italy3D } from "@/components/Italy3D";
 
 export const Route = createFileRoute("/ecosistema-innovazione")({
   head: () => ({
@@ -13,14 +14,6 @@ export const Route = createFileRoute("/ecosistema-innovazione")({
   }),
   component: Ecosistema,
 });
-
-const locations = [
-  { city: "Roma", role: "Head Quarter — Agjconfin · JABER Innovation" },
-  { city: "Arezzo", role: "NANESA — Nanomateriali & Q-materials" },
-  { city: "Bari", role: "Biomaterials LAB" },
-  { city: "Teverola (CE)", role: "Technology LAB — Jaber Innovation" },
-  { city: "Portici (NA)", role: "Nanomaterials LAB c/o IPCB-CNR" },
-];
 
 const focus = [
   { icon: Layers, title: "Coating funzionali & attivi", desc: "Rivestimenti ad alte prestazioni per packaging, automotive, aeronautico." },
@@ -90,23 +83,7 @@ function Ecosistema() {
           <h2 className="text-4xl md:text-5xl font-bold mt-4 text-gradient">Una rete di laboratori in Italia</h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-          {locations.map((l, i) => (
-            <motion.div key={l.city}
-              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-              <GlassCard>
-                <div className="flex items-start gap-3">
-                  <MapPin className="text-violet-glow shrink-0 mt-1" size={22} />
-                  <div>
-                    <div className="font-display font-semibold text-lg">{l.city}</div>
-                    <div className="text-sm text-muted-foreground mt-1">{l.role}</div>
-                  </div>
-                </div>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </div>
+        <Italy3D />
       </section>
     </PageShell>
   );

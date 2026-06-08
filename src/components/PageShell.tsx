@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 import { motion } from "motion/react";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
-import { GlowBackground } from "./GlowBackground";
+import { GeometricBackground } from "./GeometricBackground";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
     <>
-      <GlowBackground />
+      <GeometricBackground />
       <Nav />
       <motion.main
         initial={{ opacity: 0, y: 20 }}
