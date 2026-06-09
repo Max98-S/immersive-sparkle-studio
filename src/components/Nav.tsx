@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { ReducedMotionToggle } from "./ReducedMotion";
 
 const links = [
   { to: "/", label: "Home" },
@@ -52,9 +53,12 @@ export function Nav() {
             ))}
           </ul>
 
-          <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-lg hover:bg-white/10" aria-label="Menu">
-            {open ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          <div className="flex items-center gap-1">
+            <ReducedMotionToggle />
+            <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-lg hover:bg-white/10" aria-label="Menu">
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </nav>
 
         <AnimatePresence>
