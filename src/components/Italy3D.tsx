@@ -48,6 +48,14 @@ export function Italy3D() {
     return () => cancelAnimationFrame(raf);
   }, [reduce, lightX, lightY]);
 
+  // Imperatively sync light position to the SVG gradient (attrs can't bind to motion values directly)
+  useMotionValueEvent(lightXS, "change", (v) => {
+    lightGradRef.current?.setAttribute("cx", `${v}%`);
+  });
+  useMotionValueEvent(lightYS, "change", (v) => {
+    lightGradRef.current?.setAttribute("cy", `${v}%`);
+  });
+
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduce) return;
     const r = e.currentTarget.getBoundingClientRect();
