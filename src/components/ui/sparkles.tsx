@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { useId } from "react";
+import Particles, { ParticlesProvider, useParticlesProvider } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
-import type { ISourceOptions, Engine } from "@tsparticles/engine";
+import type { Engine, ISourceOptions } from "@tsparticles/engine";
 
 type SparklesProps = {
   className?: string;
@@ -17,14 +17,18 @@ type SparklesProps = {
   minOpacity?: number | null;
   color?: string;
   background?: string;
-  options?: Record<string, unknown>;
+  options?: Partial<ISourceOptions>;
 };
 
-export function Sparkles({
+const init = async (engine: Engine) => {
+  await loadSlim(engine);
+};
+
+function SparklesInner({
   className,
   size = 1.2,
   minSize = null,
-  density = 250,
+  density = 200,
   speed = 1,
   minSpeed = null,
   opacity = 0.9,
@@ -34,14 +38,7 @@ export function Sparkles({
   background = "transparent",
   options = {},
 }: SparklesProps) {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    initParticlesEngine(async (engine: Engine) => {
-      await loadSlim(engine);
-    }).then(() => setIsReady(true));
-  }, []);
-
+  const { loaded } = useParticlesProvider();
   const id = useId();
 
   const defaultOptions: ISourceOptions = {
@@ -52,7 +49,7 @@ export function Sparkles({
       color: { value: color },
       move: {
         enable: true,
-        direction: "none" as const,
+        direction: "none",
         speed: { min: minSpeed || speed / 10, max: speed },
         straight: false,
       },
@@ -66,6 +63,14 @@ export function Sparkles({
     detectRetina: true,
   };
 
-  if (!isReady) return null;
+  if (!loaded) return null;
   return <Particles id={id} options={{ ...defaultOptions, ...options }} className={className} />;
+}
+
+export function Sparkles(props: SparklesProps) {
+  return (
+    <ParticlesProvider init={init}>
+      <SparklesInner {...props} />
+    </ParticlesProvider>
+  );
 }
