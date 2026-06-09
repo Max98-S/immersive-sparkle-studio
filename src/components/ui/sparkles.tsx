@@ -3,6 +3,7 @@
 import { useEffect, useId, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
+import type { ISourceOptions, Engine } from "@tsparticles/engine";
 
 type SparklesProps = {
   className?: string;
@@ -36,14 +37,14 @@ export function Sparkles({
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
+    initParticlesEngine(async (engine: Engine) => {
       await loadSlim(engine);
     }).then(() => setIsReady(true));
   }, []);
 
   const id = useId();
 
-  const defaultOptions = {
+  const defaultOptions: ISourceOptions = {
     background: { color: { value: background } },
     fullScreen: { enable: false, zIndex: 1 },
     fpsLimit: 60,
@@ -51,7 +52,7 @@ export function Sparkles({
       color: { value: color },
       move: {
         enable: true,
-        direction: "none",
+        direction: "none" as const,
         speed: { min: minSpeed || speed / 10, max: speed },
         straight: false,
       },
