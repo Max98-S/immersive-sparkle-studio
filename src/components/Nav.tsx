@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo.png";
+import { AgjLogo } from "./AgjLogo";
 import { ReducedMotionToggle } from "./ReducedMotion";
 
 const links = [
@@ -21,7 +21,7 @@ export function Nav() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -29,14 +29,13 @@ export function Nav() {
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "py-3" : "py-5"}`}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}
     >
       <div className="container mx-auto px-4">
-        <nav className={`glass rounded-2xl px-4 py-3 flex items-center justify-between transition-all ${scrolled ? "shadow-2xl" : ""}`}>
+        <nav className={`glass rounded-2xl px-4 py-2.5 flex items-center justify-between transition-all ${scrolled ? "shadow-xl" : ""}`}>
           <Link to="/" className="flex items-center gap-2 group">
-            <img src={logo} alt="Agjconfin" className="h-8 w-auto brightness-200 contrast-125 transition-transform group-hover:scale-110" />
-            <span className="font-display font-bold text-sm tracking-wider hidden sm:block">AGJCONFIN</span>
+            <AgjLogo variant="full" height={36} className="transition-transform group-hover:scale-105" />
           </Link>
 
           <ul className="hidden lg:flex items-center gap-1">
@@ -44,8 +43,8 @@ export function Nav() {
               <li key={l.to}>
                 <Link
                   to={l.to}
-                  className="px-3 py-2 text-sm rounded-lg transition-all hover:bg-white/10 hover:text-violet-glow"
-                  activeProps={{ className: "px-3 py-2 text-sm rounded-lg bg-white/10 text-violet-glow" }}
+                  className="px-3 py-2 text-sm rounded-lg text-foreground/80 transition-all hover:bg-petrol/10 hover:text-petrol"
+                  activeProps={{ className: "px-3 py-2 text-sm rounded-lg bg-petrol/10 text-petrol font-semibold" }}
                 >
                   {l.label}
                 </Link>
@@ -55,7 +54,7 @@ export function Nav() {
 
           <div className="flex items-center gap-1">
             <ReducedMotionToggle />
-            <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-lg hover:bg-white/10" aria-label="Menu">
+            <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-lg hover:bg-petrol/10" aria-label="Menu">
               {open ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
@@ -75,7 +74,7 @@ export function Nav() {
                     <Link
                       to={l.to}
                       onClick={() => setOpen(false)}
-                      className="block px-4 py-3 rounded-lg hover:bg-white/10"
+                      className="block px-4 py-3 rounded-lg hover:bg-petrol/10"
                     >
                       {l.label}
                     </Link>
