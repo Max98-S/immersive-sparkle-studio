@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { ITALY_PATHS } from "./italy-paths";
 
@@ -15,6 +15,7 @@ const DEPTH_LAYERS = 18;
 export function Italy3D() {
   const reduce = useReducedMotion();
   const wrapRef = useRef<HTMLDivElement>(null);
+  const lightGradRef = useRef<SVGRadialGradientElement>(null);
   const [active, setActive] = useState<string>("roma");
 
   // Scroll-driven tilt (smoothed)
@@ -121,18 +122,12 @@ export function Italy3D() {
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            {/* Dynamic light spot */}
-            <motion.radialGradient
-              id="dyn-light"
-              cx={lightXS as unknown as string}
-              cy={lightYS as unknown as string}
-              r="55%"
-              style={{ "--cx": lightXS, "--cy": lightYS } as React.CSSProperties}
-            >
-              <stop offset="0%" stopColor="oklch(0.95 0.1 195)" stopOpacity="0.55" />
-              <stop offset="40%" stopColor="oklch(0.75 0.13 198)" stopOpacity="0.15" />
+            {/* Dynamic light spot — cx/cy updated imperatively from springs */}
+            <radialGradient id="dyn-light" cx="50%" cy="30%" r="55%" ref={lightGradRef}>
+              <stop offset="0%" stopColor="oklch(0.95 0.1 195)" stopOpacity="0.6" />
+              <stop offset="45%" stopColor="oklch(0.75 0.13 198)" stopOpacity="0.18" />
               <stop offset="100%" stopColor="oklch(0.3 0.07 218)" stopOpacity="0" />
-            </motion.radialGradient>
+            </radialGradient>
           </defs>
 
           <g filter="url(#glow-map)">
