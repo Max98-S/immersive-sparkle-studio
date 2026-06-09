@@ -39,36 +39,43 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.14 0.04 215);
-  --foreground: oklch(0.98 0.01 200);
-  --card: oklch(0.2 0.05 215);
-  --card-foreground: oklch(0.98 0.01 200);
-  --popover: oklch(0.2 0.05 215);
-  --popover-foreground: oklch(0.98 0.01 200);
-  --primary: oklch(0.55 0.13 205);
-  --primary-foreground: oklch(0.98 0.01 200);
-  --secondary: oklch(0.25 0.06 210);
-  --secondary-foreground: oklch(0.98 0.01 200);
-  --muted: oklch(0.22 0.04 215);
-  --muted-foreground: oklch(0.72 0.03 210);
-  --accent: oklch(0.7 0.14 200);
-  --accent-foreground: oklch(0.12 0.04 215);
+  /* Palette matched to Agjconfin brochure: petrol/teal #0e4a5c -> #1a6878 over deep navy */
+  --background: oklch(0.16 0.035 218);
+  --foreground: oklch(0.98 0.008 210);
+  --card: oklch(0.22 0.05 215);
+  --card-foreground: oklch(0.98 0.008 210);
+  --popover: oklch(0.22 0.05 215);
+  --popover-foreground: oklch(0.98 0.008 210);
+  --primary: oklch(0.45 0.09 215);
+  --primary-foreground: oklch(0.98 0.008 210);
+  --secondary: oklch(0.28 0.06 215);
+  --secondary-foreground: oklch(0.98 0.008 210);
+  --muted: oklch(0.24 0.04 218);
+  --muted-foreground: oklch(0.74 0.025 210);
+  --accent: oklch(0.6 0.11 200);
+  --accent-foreground: oklch(0.14 0.04 218);
   --destructive: oklch(0.6 0.24 25);
   --destructive-foreground: oklch(0.98 0.01 200);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.6 0.14 205);
+  --ring: oklch(0.55 0.1 210);
 
-  --violet: oklch(0.45 0.13 210);
-  --violet-glow: oklch(0.72 0.14 200);
-  --cyan-glow: oklch(0.8 0.16 195);
+  /* Brand teals from the brochure */
+  --petrol-deep: oklch(0.32 0.07 218);
+  --petrol: oklch(0.45 0.09 213);
+  --petrol-light: oklch(0.62 0.11 200);
+  --teal-glow: oklch(0.78 0.13 195);
 
-  --gradient-hero: radial-gradient(ellipse at top, oklch(0.3 0.12 205 / 0.6), transparent 60%),
-                   radial-gradient(ellipse at bottom right, oklch(0.32 0.1 215 / 0.5), transparent 60%),
-                   linear-gradient(180deg, oklch(0.14 0.04 215), oklch(0.09 0.03 220));
-  --gradient-violet: linear-gradient(135deg, oklch(0.4 0.12 210), oklch(0.65 0.15 200));
-  --shadow-glow: 0 0 80px -10px oklch(0.6 0.14 205 / 0.5);
-  --shadow-glass: 0 8px 32px 0 oklch(0 0 0 / 0.4);
+  --violet: var(--petrol);
+  --violet-glow: var(--teal-glow);
+  --cyan-glow: var(--petrol-light);
+
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.32 0.08 215 / 0.7), transparent 65%),
+                   radial-gradient(ellipse 70% 50% at 100% 100%, oklch(0.28 0.07 220 / 0.55), transparent 65%),
+                   linear-gradient(180deg, oklch(0.16 0.035 218), oklch(0.1 0.025 222));
+  --gradient-violet: linear-gradient(135deg, var(--petrol-deep), var(--petrol-light));
+  --shadow-glow: 0 0 80px -10px oklch(0.55 0.12 205 / 0.55);
+  --shadow-glass: 0 8px 32px 0 oklch(0 0 0 / 0.5);
 }
 
 .dark { color-scheme: dark; }
@@ -102,7 +109,7 @@
     box-shadow: 0 20px 60px -10px oklch(0 0 0 / 0.5), inset 0 1px 0 0 oklch(1 0 0 / 0.15);
   }
   .text-gradient {
-    background: linear-gradient(135deg, oklch(0.9 0.1 285), oklch(0.7 0.25 295), oklch(0.85 0.15 220));
+    background: linear-gradient(135deg, oklch(0.92 0.06 200), oklch(0.7 0.13 198), oklch(0.55 0.1 215));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
