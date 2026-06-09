@@ -1,10 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
-import { ArrowRight, Sparkles, TrendingUp, Award, Users, Rocket, Brain, Globe2, Beaker } from "lucide-react";
+import { motion } from "motion/react";
+import { ArrowRight, Award, TrendingUp, Brain, Globe2, Beaker, Rocket, Users } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 import { GlassCard } from "@/components/GlassCard";
-import logo from "@/assets/logo.png";
+import { AgjLogo } from "@/components/AgjLogo";
+import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
+import { TextEffect } from "@/components/ui/text-effect";
+import { CardStack, type CardStackItem } from "@/components/ui/card-stack";
+import { Sparkles } from "@/components/ui/sparkles";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,85 +33,161 @@ const highlights = [
   { icon: Beaker, title: "R&D Applicata", desc: "Spin-off CNR e JABER Innovation: ricerca che diventa prodotto." },
 ];
 
-function Home() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+const serviceCards: CardStackItem[] = [
+  {
+    id: 1,
+    title: "Finanza Agevolata",
+    description: "Bandi regionali, nazionali ed europei: dalla strategia alla rendicontazione.",
+    imageSrc: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=70",
+    tag: "Core service",
+  },
+  {
+    id: 2,
+    title: "Finanza d'Impresa",
+    description: "Strumenti di credito, finanza straordinaria e supporto agli investimenti.",
+    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=70",
+    tag: "Capital",
+  },
+  {
+    id: 3,
+    title: "Trasferimento Tecnologico",
+    description: "Dal laboratorio al mercato: scale-up industriale con Jaber Innovation.",
+    imageSrc: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=900&q=70",
+    tag: "Innovation",
+  },
+  {
+    id: 4,
+    title: "Ricerca & Sviluppo",
+    description: "Nanomateriali, biomateriali, coating funzionali e nanocompositi a base grafene.",
+    imageSrc: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=900&q=70",
+    tag: "R&D",
+  },
+  {
+    id: 5,
+    title: "Innovation Management",
+    description: "Roadmap tecnologiche e supporto strategico per progetti complessi.",
+    imageSrc: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=70",
+    tag: "Strategy",
+  },
+];
 
+function Home() {
   return (
     <PageShell>
-      {/* HERO */}
-      <section ref={heroRef} className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <motion.div style={{ y, opacity, scale }} className="container mx-auto px-4 relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
+      {/* HERO — faithful to the brochure cover */}
+      <section className="relative overflow-hidden">
+        <Sparkles className="absolute inset-0 w-full h-full opacity-60" density={120} size={1.5} color="#2a8aa0" />
+
+        <div className="container mx-auto px-4 pt-8 pb-20">
+          {/* Top brochure strip */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-6 mb-10"
+          >
+            <AgjLogo variant="full" height={56} />
+            <div className="flex items-center gap-1 ml-4" aria-hidden>
+              {[0, 1, 2].map((i) => (
+                <motion.svg
+                  key={i}
+                  width="22" height="38" viewBox="0 0 22 38"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + i * 0.1 }}
+                >
+                  <circle cx="4" cy="6" r="2" fill="#0d4a5c" />
+                  <circle cx="4" cy="14" r="2" fill="#0d4a5c" />
+                  <circle cx="4" cy="22" r="2" fill="#0d4a5c" />
+                  <circle cx="4" cy="30" r="2" fill="#0d4a5c" />
+                  <path d="M8,4 L18,19 L8,34" stroke="#0d4a5c" strokeWidth="3" fill="none" />
+                </motion.svg>
+              ))}
+            </div>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 items-center">
+            {/* LEFT: title block */}
+            <div>
+              <TextEffect
+                as="h1"
+                per="char"
+                preset="blur"
+                className="text-6xl md:text-8xl font-display font-extrabold leading-[0.95] text-petrol tracking-tight"
+              >
+                AGJCONFIN
+              </TextEffect>
+
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+                className="mt-2 text-3xl md:text-4xl font-display font-semibold text-petrol/80"
+              >
+                S.r.l
+              </motion.div>
+
+              {/* Petrol ribbon */}
+              <motion.div
+                initial={{ opacity: 0, x: -40, width: 0 }}
+                animate={{ opacity: 1, x: 0, width: "auto" }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+                className="mt-8 inline-block"
+              >
+                <div className="petrol-ribbon px-8 py-4 pr-14">
+                  <span className="text-xl md:text-2xl font-display font-bold tracking-wider">
+                    CONSULENZA FINANZIARIA
+                  </span>
+                </div>
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 }}
+                className="mt-10 text-lg text-foreground/80 max-w-xl leading-relaxed"
+              >
+                In sinergia con uno spin-off del CNR, uniamo innovazione e strategia
+                per guidare il futuro degli investimenti.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 }}
+                className="mt-8 flex flex-wrap gap-3"
+              >
+                <Link
+                  to="/servizi"
+                  className="glass-petrol px-6 py-3.5 rounded-xl font-semibold inline-flex items-center gap-2 hover:scale-105 transition-transform group"
+                >
+                  Scopri i servizi <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  to="/contatti"
+                  className="px-6 py-3.5 rounded-xl font-semibold border border-petrol/30 text-petrol hover:bg-petrol/5 transition-colors"
+                >
+                  Contattaci
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* RIGHT: hexagon mark */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="flex justify-center mb-8"
+              initial={{ opacity: 0, scale: 0.6, rotate: -10 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ delay: 0.4, duration: 0.9, type: "spring", stiffness: 90 }}
+              className="flex justify-center lg:justify-end"
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-violet/40 blur-3xl rounded-full animate-pulse-glow" />
-                <img src={logo} alt="Agjconfin logo" className="h-24 w-auto brightness-200 relative animate-float" />
-              </div>
-            </motion.div>
-
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full text-xs uppercase tracking-[0.2em] text-violet-glow mb-6"
-            >
-              <Sparkles size={14} /> Dal 1990 — Consulenza Indipendente
-            </motion.span>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold text-gradient leading-[1.02]"
-            >
-              Trasformiamo idee<br />in crescita concreta.
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="mt-8 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
-            >
-              In sinergia con uno spin-off del CNR, uniamo innovazione e strategia
-              per guidare il futuro degli investimenti. La finanza agevolata non è
-              solo un'opportunità: è lo strumento strategico che trasforma idee
-              e investimenti in crescita concreta e sostenibile.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="mt-10 flex flex-wrap gap-4 justify-center"
-            >
-              <Link to="/servizi" className="glass-strong px-7 py-4 rounded-2xl font-semibold inline-flex items-center gap-2 hover:scale-105 transition-transform group">
-                Scopri i servizi <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link to="/contatti" className="px-7 py-4 rounded-2xl font-semibold border border-white/20 hover:bg-white/5 transition-colors">
-                Contattaci
-              </Link>
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <AgjLogo variant="mark" height={420} className="drop-shadow-2xl" />
+              </motion.div>
             </motion.div>
           </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs uppercase tracking-widest text-muted-foreground"
-        >
-          ↓ Scroll
-        </motion.div>
+        </div>
       </section>
 
       {/* STATS */}
@@ -120,7 +199,7 @@ function Home() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08 }}
             >
               <GlassCard className="text-center" tilt>
                 <div className="text-4xl md:text-5xl font-bold text-gradient">{s.value}</div>
@@ -131,6 +210,21 @@ function Home() {
         </div>
       </section>
 
+      {/* HIGHLIGHT — hero highlight section */}
+      <section className="container mx-auto px-4 py-10">
+        <HeroHighlight containerClassName="rounded-3xl py-20 px-6 bg-white/40">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: [20, -5, 0] }}
+            transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+            className="text-3xl px-4 md:text-5xl lg:text-6xl font-display font-bold text-petrol max-w-4xl leading-tight text-center mx-auto"
+          >
+            La finanza agevolata non è solo un'opportunità: è lo strumento strategico che trasforma idee e investimenti in{" "}
+            <Highlight className="text-petrol-deep">crescita concreta e sostenibile.</Highlight>
+          </motion.h2>
+        </HeroHighlight>
+      </section>
+
       {/* HIGHLIGHTS */}
       <section className="container mx-auto px-4 py-20">
         <motion.div
@@ -139,7 +233,7 @@ function Home() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center mb-16"
         >
-          <span className="text-xs uppercase tracking-[0.3em] text-violet-glow">Cosa facciamo</span>
+          <span className="text-xs uppercase tracking-[0.3em] text-petrol font-semibold">Cosa facciamo</span>
           <h2 className="text-4xl md:text-6xl font-bold mt-4 text-gradient">Un partner unico, lungo tutto il percorso.</h2>
           <p className="mt-6 text-muted-foreground text-lg">
             Dalla definizione della strategia all'individuazione delle opportunità,
@@ -154,18 +248,39 @@ function Home() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08 }}
             >
               <GlassCard className="h-full">
-                <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center mb-4 text-violet-glow">
+                <div className="w-12 h-12 rounded-2xl glass-petrol flex items-center justify-center mb-4">
                   <h.icon size={22} />
                 </div>
-                <h3 className="font-display font-semibold text-lg">{h.title}</h3>
+                <h3 className="font-display font-semibold text-lg text-petrol">{h.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2">{h.desc}</p>
               </GlassCard>
             </motion.div>
           ))}
         </div>
+      </section>
+
+      {/* CARD STACK — services carousel */}
+      <section className="container mx-auto px-4 py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto text-center mb-12"
+        >
+          <span className="text-xs uppercase tracking-[0.3em] text-petrol font-semibold">I nostri servizi</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 text-gradient">Esplora la nostra offerta</h2>
+        </motion.div>
+
+        <CardStack
+          items={serviceCards}
+          cardWidth={420}
+          cardHeight={280}
+          autoAdvance
+          intervalMs={4200}
+        />
       </section>
 
       {/* QUOTE */}
@@ -176,12 +291,10 @@ function Home() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          <div className="glass-strong rounded-[2.5rem] p-10 md:p-16 text-center relative overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-60 h-60 bg-violet/30 blur-3xl rounded-full" />
-            <Award className="mx-auto text-violet-glow mb-6" size={36} />
-            <blockquote className="text-2xl md:text-4xl font-display font-medium leading-snug">
-              "La finanza agevolata non è solo un'opportunità: è lo strumento
-              strategico che trasforma idee e investimenti in <span className="text-gradient">crescita concreta e sostenibile</span>."
+          <div className="glass-petrol rounded-[2.5rem] p-10 md:p-16 text-center relative overflow-hidden">
+            <Award className="mx-auto mb-6 text-white" size={36} />
+            <blockquote className="text-2xl md:text-4xl font-display font-medium leading-snug text-white">
+              "Trasformiamo idee e investimenti in <span className="text-teal-200">crescita concreta e sostenibile.</span>"
             </blockquote>
           </div>
         </motion.div>
@@ -195,10 +308,10 @@ function Home() {
           viewport={{ once: true }}
           className="glass-strong rounded-3xl p-12 md:p-20 text-center relative overflow-hidden"
         >
-          <Rocket className="mx-auto text-violet-glow mb-6" size={40} />
+          <Rocket className="mx-auto text-petrol mb-6" size={40} />
           <h2 className="text-4xl md:text-5xl font-bold text-gradient">Il prossimo passo verso la vostra crescita inizia da qui.</h2>
           <div className="mt-8 flex flex-wrap gap-4 justify-center">
-            <Link to="/contatti" className="glass-strong px-8 py-4 rounded-2xl font-semibold inline-flex items-center gap-2 hover:scale-105 transition-transform">
+            <Link to="/contatti" className="glass-petrol px-8 py-4 rounded-xl font-semibold inline-flex items-center gap-2 hover:scale-105 transition-transform">
               Contattaci <Users size={18} />
             </Link>
           </div>
